@@ -222,9 +222,9 @@ wasm_caches: $(DUCKDB_SOURCES)
 	mkdir -p ${EXTENSION_CACHE_DIR}
 	chown -R $(id -u):$(id -g) ${EXTENSION_CACHE_DIR}
 	mkdir -p ${CACHE_DIRS}
-ifeq (${DUCKDB_EXCEL}, 1)
-	touch ${EXCEL_EXTENSION_CACHE_FILE}
-endif
+
+touch ${EXCEL_EXTENSION_CACHE_FILE}
+
 ifeq (${DUCKDB_JSON}, 1)
 	touch ${JSON_EXTENSION_CACHE_FILE}
 endif
