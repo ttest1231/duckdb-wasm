@@ -225,9 +225,8 @@ wasm_caches: $(DUCKDB_SOURCES)
 
 touch ${EXCEL_EXTENSION_CACHE_FILE}
 
-ifeq (${DUCKDB_JSON}, 1)
-	touch ${JSON_EXTENSION_CACHE_FILE}
-endif
+touch ${JSON_EXTENSION_CACHE_FILE}
+
 
 wrapped_wasm_caches:
 	${EXEC_ENVIRONMENT} make wasm_caches
