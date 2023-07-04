@@ -626,12 +626,6 @@ jobs:
                   ./scripts/npm_publish_shell.sh
                   ./scripts/npm_publish_react.sh
 
-            - name: Deploy GitHub Page
-              if: github.ref == 'refs/heads/master'
-              run: |
-                  git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-                  git fetch origin gh-pages
-                  ./scripts/deploy_pages.sh
 
             - name: Package
               shell: bash
