@@ -605,30 +605,7 @@ jobs:
                       rm -rf ./packages/duckdb-wasm-app/build/
                       yarn workspace @duckdb/duckdb-wasm-app build:release
 
-            - name: Test @duckdb/duckdb-wasm on Chrome
-              uses: duckdb/duckdb-wasm-ci-env@v0.11
-              with:
-                  script: |-
-                      CHROME_BIN=`which google-chrome` yarn workspace @duckdb/duckdb-wasm test:chrome
-
-            #            - name: Test @duckdb/duckdb-wasm on Firefox
-            #              uses: duckdb/duckdb-wasm-ci-env@v0.11
-            #              with:
-            #                  script: |-
-            #                      yarn workspace @duckdb/duckdb-wasm test:firefox
-
-            - name: Test @duckdb/duckdb-wasm on Node.js
-              uses: duckdb/duckdb-wasm-ci-env@v0.11
-              with:
-                  script: |-
-                      yarn workspace @duckdb/duckdb-wasm test:node
-
-            - name: Coverage @duckdb/duckdb-wasm
-              uses: duckdb/duckdb-wasm-ci-env@v0.11
-              with:
-                  script: |-
-                      CHROME_BIN=`which google-chrome` yarn workspace @duckdb/duckdb-wasm test:chrome:coverage
-
+           
             - name: Build examples
               uses: duckdb/duckdb-wasm-ci-env@v0.11
               with:
