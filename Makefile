@@ -236,15 +236,19 @@ wrapped_wasm_caches:
 check_duckdb: $(DUCKDB_SOURCES)
 	(cd ${ROOT_DIR}/build/dev/mvp && make clean) || true
 	(cd ${ROOT_DIR}/build/dev/eh && make clean) || true
+	(cd ${ROOT_DIR}/build/dev/ehsimd && make clean) || true
 	(cd ${ROOT_DIR}/build/dev/coi && make clean) || true
 	(cd ${ROOT_DIR}/build/relsize/mvp && make clean) || true
 	(cd ${ROOT_DIR}/build/relsize/eh && make clean) || true
+	(cd ${ROOT_DIR}/build/relsize/ehsimd && make clean) || true
 	(cd ${ROOT_DIR}/build/relsize/coi && make clean) || true
 	(cd ${ROOT_DIR}/build/relperf/mvp && make clean) || true
 	(cd ${ROOT_DIR}/build/relperf/eh && make clean) || true
+	(cd ${ROOT_DIR}/build/relperf/ehsimd && make clean) || true
 	(cd ${ROOT_DIR}/build/relperf/coi && make clean) || true
 	(cd ${ROOT_DIR}/build/debug/mvp && make clean) || true
 	(cd ${ROOT_DIR}/build/debug/eh && make clean) || true
+	(cd ${ROOT_DIR}/build/debug/ehsimd && make clean) || true
 	(cd ${ROOT_DIR}/build/debug/coi && make clean) || true
 	touch check_duckdb
 
@@ -255,24 +259,28 @@ wasm_setup: set_environment check_duckdb wrapped_wasm_caches
 wasm_dev: wasm_setup
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh dev mvp
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh dev eh
+	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh dev ehsimd
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh dev coi
 
 .PHONY: wasm_relperf
 wasm_relperf: wasm_setup
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relperf mvp
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relperf eh
+	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relperf ehsimd
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relperf coi
 
 .PHONY: wasm_relsize
 wasm_relsize: wasm_setup
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relsize mvp
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relsize eh
+	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relsize ehsimd
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relsize coi
 
 .PHONY: wasm_debug
 wasm_debug: wasm_setup
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh debug mvp
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh debug eh
+	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh debug ehsimd
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh debug coi
 
 wasm: wasm_dev

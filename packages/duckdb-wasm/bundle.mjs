@@ -95,6 +95,7 @@ rimraf.sync(`${dist}/*.cjs.map`);
 const src = path.resolve(__dirname, 'src');
 fs.copyFile(path.resolve(src, 'bindings', 'duckdb-mvp.wasm'), path.resolve(dist, 'duckdb-mvp.wasm'), printErr);
 fs.copyFile(path.resolve(src, 'bindings', 'duckdb-eh.wasm'), path.resolve(dist, 'duckdb-eh.wasm'), printErr);
+fs.copyFile(path.resolve(src, 'bindings', 'duckdb-ehsimd.wasm'), path.resolve(dist, 'duckdb-ehsimd.wasm'), printErr);
 fs.copyFile(path.resolve(src, 'bindings', 'duckdb-coi.wasm'), path.resolve(dist, 'duckdb-coi.wasm'), printErr);
 
 (async () => {
@@ -183,6 +184,21 @@ fs.copyFile(path.resolve(src, 'bindings', 'duckdb-coi.wasm'), path.resolve(dist,
     await esbuild.build({
         entryPoints: ['./src/targets/duckdb-browser-eh.worker.ts'],
         outfile: 'dist/duckdb-browser-eh.worker.js',
+        platform: 'browser',
+        format: 'esm',
+        globalName: 'duckdb',
+        target: TARGET_BROWSER,
+        bundle: true,
+        minify: false,
+        sourcemap: is_debug ? 'inline' : true,
+        external: EXTERNALS_WEBWORKER,
+        define: { 'process.release.name': '"browser"' },
+    });
+
+    console.log('[ ESBUILD ] duckdb-browser-ehsimd.worker.js');
+    await esbuild.build({
+        entryPoints: ['./src/targets/duckdb-browser-eh.worker.ts'],
+        outfile: 'dist/duckdb-browser-ehsimd.worker.js',
         platform: 'browser',
         format: 'esm',
         globalName: 'duckdb',
