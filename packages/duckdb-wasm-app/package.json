@@ -2,6 +2,7 @@
     "name": "@duckdb/duckdb-wasm-app",
     "version": "1.11.0",
     "description": "",
+    "private": true,
     "author": "Andre Kohn <kohn.a@outlook.com>",
     "license": "MIT",
     "private": true,
