@@ -1,5 +1,5 @@
 {
-    "name": "@duckdb/duckdb-wasm-app",
+    "name": "duckdb-wasm-es-app",
     "version": "1.11.0",
     "description": "",
     "private": true,
@@ -19,8 +19,8 @@
         "node": ">=14.13"
     },
     "dependencies": {
-        "@duckdb/duckdb-wasm": "file:../duckdb-wasm",
-        "@duckdb/duckdb-wasm-shell": "file:../duckdb-wasm-shell",
+        "duckdb-wasm-es": "file:../duckdb-wasm",
+        "duckdb-wasm-es-shell": "file:../duckdb-wasm-shell",
         "apache-arrow": "^12.0.1",
         "bootstrap": "^5.2.3",
         "classnames": "^2.3.2",
