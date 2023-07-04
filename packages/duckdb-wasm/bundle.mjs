@@ -35,8 +35,8 @@ import { fileURLToPath } from 'url';
 // The lack of alternatives for Karma won't allow us to bundle workers and tests as ESM.
 // We should upgrade all CommonJS bundles to ESM as soon as the dynamic requires are resolved.
 
-const TARGET_BROWSER = ['chrome64', 'edge79', 'firefox62', 'safari11.1'];
-const TARGET_BROWSER_TEST = ['es2020'];
+const TARGET_BROWSER = ['chrome110'];
+const TARGET_BROWSER_TEST = ['esnext'];
 const TARGET_NODE = ['node14.6'];
 const EXTERNALS_NODE = ['apache-arrow'];
 const EXTERNALS_BROWSER = ['apache-arrow', 'module'];
