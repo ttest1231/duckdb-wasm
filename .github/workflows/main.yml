@@ -44,7 +44,6 @@ jobs:
                       ./node_modules
                       ./packages/benchmarks/node_modules
                       ./packages/duckdb-wasm/node_modules
-                      ./packages/duckdb-wasm-shell/node_modules
                   key: ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
                   restore-keys: |
                       ${{ runner.os }}-yarn-
@@ -60,12 +59,6 @@ jobs:
               with:
                   script: |-
                       yarn workspace duckdb-wasm-es-wasm run lint
-
-            - name: Lint duckdb-wasm-es-wasm-shell
-              uses: duckdb/duckdb-wasm-ci-env@v0.11
-              with:
-                  script: |-
-                      yarn workspace duckdb-wasm-es-wasm-shell run lint
 
             - name: Lint @duckdb/benchmarks
               uses: duckdb/duckdb-wasm-ci-env@v0.11
@@ -138,41 +131,6 @@ jobs:
                       ./target/release/dataprep
                   retention-days: 1
 
-    duckdb_shell:
-        name: DuckDB Shell
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  submodules: 'recursive'
-
-            - name: Git submodule status
-              run: |
-                  git submodule status ./submodules/duckdb > git_submodule_status.txt
-
-            - name: Cache ccache
-              uses: actions/cache@v3
-              with:
-                  path: |
-                      ./.ccache
-                  key: ${{ runner.os }}-duckdb-${{ hashFiles('git_submodule_status.txt') }}
-                  restore-keys: |
-                      ${{ runner.os }}-duckdb-
-
-            - name: Build DuckDB shell
-              uses: duckdb/duckdb-wasm-ci-env@v0.11
-              with:
-                  script: |-
-                      ccache -z
-                      ./scripts/build_duckdb_shell.sh
-                      ccache -s
-
-            - name: Upload artifact
-              uses: actions/upload-artifact@v3
-              with:
-                  name: duckdb-shell
-                  path: ./submodules/duckdb/build/Release/duckdb
-                  retention-days: 1
 
     native_debug:
         name: Native / Debug
@@ -489,7 +447,6 @@ jobs:
             - wasm_eh
             - wasm_ehsimd
             - wasm_coi
-            - duckdb_shell
             - native_debug
             - native_release
             - clang_format
@@ -509,18 +466,7 @@ jobs:
               run: |
                   git submodule status > git_submodule_status.txt
 
-            - name: Cache rust build
-              uses: actions/cache@v3
-              with:
-                  path: |
-                      ./.cargo/bin/
-                      ./.cargo/registry/index/
-                      ./.cargo/registry/cache/
-                      ./.cargo/git/db/
-                      ./target
-                  key: ${{ runner.os }}-shell-${{ hashFiles('./Cargo.lock') }}-${{ hashFiles('./packages/duckdb-wasm-shell/crate/src/**') }}
-                  restore-keys: |
-                      ${{ runner.os }}-shell-
+        
 
             - name: Cache node_modules
               uses: actions/cache@v3
@@ -529,7 +475,6 @@ jobs:
                       ./node_modules
                       ./packages/benchmarks/node_modules
                       ./packages/duckdb-wasm/node_modules
-                      ./packages/duckdb-wasm-shell/node_modules
                   key: ${{ runner.os }}-yarn-${{ hashFiles('./yarn.lock') }}
                   restore-keys: |
                       ${{ runner.os }}-yarn-
@@ -544,10 +489,6 @@ jobs:
                   name: tpch-dbgen
                   path: ./submodules/tpch-dbgen/dbgen/
 
-            - uses: actions/download-artifact@v3
-              with:
-                  name: duckdb-shell
-                  path: ./submodules/duckdb/build/Release/
 
             - uses: actions/download-artifact@v3
               with:
@@ -598,14 +539,6 @@ jobs:
                       yarn workspace duckdb-wasm-es-wasm build:release
                       yarn workspace duckdb-wasm-es-wasm docs
 
-            - name: Build duckdb-wasm-es-wasm-shell
-              uses: duckdb/duckdb-wasm-ci-env@v0.11
-              with:
-                  script: |-
-                      rm -rf ./packages/duckdb-wasm-shell/dist/
-                      yarn workspace duckdb-wasm-es-wasm-shell install:wasmpack
-                      yarn workspace duckdb-wasm-es-wasm-shell build:release
-
             - name: Build duckdb-wasm-es-wasm-app
               uses: duckdb/duckdb-wasm-ci-env@v0.11
               with:
@@ -628,5 +561,3 @@ jobs:
               if: env.NODE_AUTH_TOKEN != null && (startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch')
               run: |
                   ./scripts/npm_publish_lib.sh
-                  ./scripts/npm_publish_shell.sh
-                  ./scripts/npm_publish_react.sh
