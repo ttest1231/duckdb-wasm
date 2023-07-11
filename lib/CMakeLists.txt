@@ -272,10 +272,11 @@ if(EMSCRIPTEN)
       LINK_FLAGS
       "${WASM_LINK_FLAGS} \
       -s ALLOW_BLOCKING_ON_MAIN_THREAD=1 \
-      -s ENVIRONMENT='web,node,worker' \
+      -s ENVIRONMENT='web,worker' \
       -s WARN_ON_UNDEFINED_SYMBOLS=0 \
       -s ALLOW_MEMORY_GROWTH=1 \
       -s MAXIMUM_MEMORY=4GB \
+      -s INITIAL_MEMORY=100MB \
       -s MODULARIZE=1 \
       -s FILESYSTEM=0 \
       -s EXPORT_ES6=1 \

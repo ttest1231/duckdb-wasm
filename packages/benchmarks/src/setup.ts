@@ -1,5 +1,5 @@
-import * as duckdb_blocking from '@duckdb/duckdb-wasm/dist/duckdb-node-blocking';
-import * as duckdb from '@duckdb/duckdb-wasm';
+import * as duckdb_blocking from 'duckdb-wasm-es-wasm/dist/duckdb-node-blocking';
+import * as duckdb from 'duckdb-wasm-es-wasm';
 import * as sqljs from 'sql.js';
 import initSQLJs from 'sql.js';
 import path from 'path';

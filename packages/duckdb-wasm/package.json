@@ -1,7 +1,7 @@
 {
-    "name": "@duckdb/duckdb-wasm",
-    "version": "1.11.0",
-    "description": "DuckDB powered by WebAssembly",
+    "name": "duckdb-wasm-es-wasm",
+    "version": "1.11.1",
+    "description": "DuckDB powered by WebAssembly. Modern browser and ES workers",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -63,9 +63,6 @@
         "build:release": "node bundle.mjs release && tsc --emitDeclarationOnly",
         "docs": "typedoc",
         "report": "node ./coverage.mjs",
-        "test:node": "node --enable-source-maps --experimental-wasm-eh ../../node_modules/jasmine/bin/jasmine ./dist/tests-node.cjs",
-        "test:node:debug": "node --inspect-brk --enable-source-maps --experimental-wasm-eh ../../node_modules/jasmine/bin/jasmine ./dist/tests-node.cjs",
-        "test:node:coverage": "nyc -r json --report-dir ./coverage/node node --experimental-wasm-eh ../../node_modules/jasmine/bin/jasmine ./dist/tests-node.cjs",
         "test:firefox": "karma start ./karma/tests-firefox.cjs",
         "test:chrome": "karma start ./karma/tests-chrome.cjs",
         "test:chrome:eh": "karma start ./karma/tests-chrome-eh.cjs",
@@ -96,6 +93,7 @@
     "exports": {
         "./dist/duckdb-mvp.wasm": "./dist/duckdb-mvp.wasm",
         "./dist/duckdb-eh.wasm": "./dist/duckdb-eh.wasm",
+        "./dist/duckdb-ehsimd.wasm": "./dist/duckdb-ehsimd.wasm",
         "./dist/duckdb-coi.wasm": "./dist/duckdb-coi.wasm",
         "./dist/duckdb-browser": "./dist/duckdb-browser.mjs",
         "./dist/duckdb-browser.cjs": "./dist/duckdb-browser.cjs",
@@ -106,6 +104,7 @@
         "./dist/duckdb-browser-coi.pthread.worker.js": "./dist/duckdb-browser-coi.pthread.worker.js",
         "./dist/duckdb-browser-coi.worker.js": "./dist/duckdb-browser-coi.worker.js",
         "./dist/duckdb-browser-eh.worker.js": "./dist/duckdb-browser-eh.worker.js",
+        "./dist/duckdb-browser-ehsimd.worker.js": "./dist/duckdb-browser-ehsimd.worker.js",
         "./dist/duckdb-browser-mvp.worker.js": "./dist/duckdb-browser-mvp.worker.js",
         "./dist/duckdb-node": "./dist/duckdb-node.cjs",
         "./dist/duckdb-node.cjs": "./dist/duckdb-node.cjs",

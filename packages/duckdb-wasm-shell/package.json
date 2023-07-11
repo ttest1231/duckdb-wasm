@@ -1,6 +1,7 @@
 {
-    "name": "@duckdb/duckdb-wasm-shell",
+    "name": "duckdb-wasm-es-wasm-shell",
     "version": "1.11.0",
+    "private": true,
     "description": "",
     "author": "Andre Kohn <kohn.a@outlook.com>",
     "license": "MIT",
@@ -24,7 +25,7 @@
         "csv"
     ],
     "dependencies": {
-        "@duckdb/duckdb-wasm": "file:../duckdb-wasm",
+        "duckdb-wasm-es-wasm": "file:../duckdb-wasm",
         "xterm": "^5.1.0",
         "xterm-addon-fit": "^0.7.0",
         "xterm-addon-web-links": "^0.8.0",

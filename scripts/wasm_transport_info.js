@@ -72,7 +72,7 @@ async function compare() {
   const sizeTable = {}
   const timeTable = {}
   for(const mode of ['relperf', 'relsize', 'dev']){
-    for(const feature of ['coi', 'eh', 'mvp']){
+    for(const feature of ['coi', 'eh', 'ehsimd', 'mvp']){
       const key = `${mode}-${feature}`;
       sizeTable[key] = {}
       timeTable[key] = {}

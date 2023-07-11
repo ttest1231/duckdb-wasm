@@ -1,5 +1,5 @@
 import React from 'react';
-import * as duckdb from '@duckdb/duckdb-wasm';
+import * as duckdb from 'duckdb-wasm-es-wasm';
 import { Resolvable, Resolver, ResolvableStatus } from './resolvable';
 
 type PlatformProps = {

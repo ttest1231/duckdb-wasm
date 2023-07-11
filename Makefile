@@ -237,15 +237,19 @@ wrapped_wasm_caches:
 check_duckdb: $(DUCKDB_SOURCES)
 	(cd ${ROOT_DIR}/build/dev/mvp && make clean) || true
 	(cd ${ROOT_DIR}/build/dev/eh && make clean) || true
+	(cd ${ROOT_DIR}/build/dev/ehsimd && make clean) || true
 	(cd ${ROOT_DIR}/build/dev/coi && make clean) || true
 	(cd ${ROOT_DIR}/build/relsize/mvp && make clean) || true
 	(cd ${ROOT_DIR}/build/relsize/eh && make clean) || true
+	(cd ${ROOT_DIR}/build/relsize/ehsimd && make clean) || true
 	(cd ${ROOT_DIR}/build/relsize/coi && make clean) || true
 	(cd ${ROOT_DIR}/build/relperf/mvp && make clean) || true
 	(cd ${ROOT_DIR}/build/relperf/eh && make clean) || true
+	(cd ${ROOT_DIR}/build/relperf/ehsimd && make clean) || true
 	(cd ${ROOT_DIR}/build/relperf/coi && make clean) || true
 	(cd ${ROOT_DIR}/build/debug/mvp && make clean) || true
 	(cd ${ROOT_DIR}/build/debug/eh && make clean) || true
+	(cd ${ROOT_DIR}/build/debug/ehsimd && make clean) || true
 	(cd ${ROOT_DIR}/build/debug/coi && make clean) || true
 	touch check_duckdb
 
@@ -256,24 +260,28 @@ wasm_setup: set_environment check_duckdb wrapped_wasm_caches
 wasm_dev: wasm_setup
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh dev mvp
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh dev eh
+	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh dev ehsimd
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh dev coi
 
 .PHONY: wasm_relperf
 wasm_relperf: wasm_setup
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relperf mvp
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relperf eh
+	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relperf ehsimd
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relperf coi
 
 .PHONY: wasm_relsize
 wasm_relsize: wasm_setup
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relsize mvp
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relsize eh
+	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relsize ehsimd
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh relsize coi
 
 .PHONY: wasm_debug
 wasm_debug: wasm_setup
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh debug mvp
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh debug eh
+	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh debug ehsimd
 	${EXEC_ENVIRONMENT} ${ROOT_DIR}/scripts/wasm_build_lib.sh debug coi
 
 wasm: wasm_dev
@@ -284,64 +292,56 @@ wasm_star: wasm_relsize wasm_relperf wasm_dev wasm_debug
 # Build the duckdb library in debug mode
 .PHONY: js_debug
 js_debug: build/bootstrap wasm yarn_install
-	yarn workspace @duckdb/duckdb-wasm build:debug
+	yarn workspace duckdb-wasm-es-wasm build:debug
 
 # Build the duckdb library in release mode
 .PHONY: js_release
 js_release: yarn_install
-	yarn workspace @duckdb/duckdb-wasm build:release
+	yarn workspace duckdb-wasm-es-wasm build:release
 
 # Build the duckdb docs
 .PHONY: docs
 docs: yarn_install
-	yarn workspace @duckdb/duckdb-wasm docs
+	yarn workspace duckdb-wasm-es-wasm docs
 
 # Run the duckdb javascript tests
 .PHONY: js_tests
 js_tests: js_debug build/data
-	yarn workspace @duckdb/duckdb-wasm test
+	yarn workspace duckdb-wasm-es-wasm test
 
 # Run the duckdb javascript tests in browser
 .PHONY: js_tests_browser
 js_tests_browser: js_debug build/data
-	yarn workspace @duckdb/duckdb-wasm test:chrome
+	yarn workspace duckdb-wasm-es-wasm test:chrome
 
 # Run the duckdb javascript tests in browser
 .PHONY: js_tests_browser_debug
 js_tests_browser_debug: js_debug build/data
-	yarn workspace @duckdb/duckdb-wasm test:browser:debug
+	yarn workspace duckdb-wasm-es-wasm test:browser:debug
 
-# Run the duckdb javascript tests on nodejs
-.PHONY: js_tests_node
-js_tests_node: js_debug build/data
-	yarn workspace @duckdb/duckdb-wasm test:node --filter=${JS_FILTER}
-
-.PHONY: js_tests_node_debug
-js_tests_node_debug: js_debug build/data
-	yarn workspace @duckdb/duckdb-wasm test:node:debug --filter=${JS_FILTER}
 
 wasmpack: yarn_install
-	yarn workspace @duckdb/duckdb-wasm-shell install:wasmpack
+	yarn workspace duckdb-wasm-es-wasm-shell install:wasmpack
 
 .PHONY: shell
 shell: build/bootstrap js_debug
-	yarn workspace @duckdb/duckdb-wasm-shell build:debug
+	yarn workspace duckdb-wasm-es-wasm-shell build:debug
 
 .PHONY: shell_release
 shell_release: js_release
-	yarn workspace @duckdb/duckdb-wasm-shell build:release
+	yarn workspace duckdb-wasm-es-wasm-shell build:release
 
 .PHONY: app_start
 app_start: yarn_install
-	yarn workspace @duckdb/duckdb-wasm-app start
+	yarn workspace duckdb-wasm-es-wasm-app start
 
 .PHONY: app_start_corp
 app_start_corp:
-	yarn workspace @duckdb/duckdb-wasm-app start:corp
+	yarn workspace duckdb-wasm-es-wasm-app start:corp
 
 .PHONY: app
 app: wasm wasmpack shell docs
-	yarn workspace @duckdb/duckdb-wasm-app build:release
+	yarn workspace duckdb-wasm-es-wasm-app build:release
 
 .PHONY: app_server
 app_server:
@@ -358,8 +358,8 @@ clang_format:
 # JS formatting
 .PHONY: eslint
 eslint:
-	yarn workspace @duckdb/duckdb-wasm run lint
-	yarn workspace @duckdb/duckdb-wasm-shell run lint
+	yarn workspace duckdb-wasm-es-wasm run lint
+	yarn workspace duckdb-wasm-es-wasm-shell run lint
 	yarn workspace @duckdb/benchmarks run lint
 
 # Install all yarn packages
@@ -370,11 +370,8 @@ yarn_install:
 
 .PHONY: examples
 examples: yarn_install
-	yarn workspace @duckdb/duckdb-wasm-examples-bare-node test
-	yarn workspace @duckdb/duckdb-wasm-examples-bare-browser build
-	yarn workspace @duckdb/duckdb-wasm-examples-esbuild-node build
-	yarn workspace @duckdb/duckdb-wasm-examples-esbuild-node test
-	yarn workspace @duckdb/duckdb-wasm-examples-esbuild-browser build
+	yarn workspace duckdb-wasm-es-wasm-examples-bare-browser build
+	yarn workspace duckdb-wasm-es-wasm-examples-esbuild-browser build
 
 # ---------------------------------------------------------------------------
 # Environment

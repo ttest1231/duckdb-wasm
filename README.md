@@ -1,11 +1,11 @@
 <div align="center">
-  <img src="https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@latest/dist/img/duckdb_wasm.svg" height="80">
+  <img src="https://cdn.jsdelivr.net/npm/duckdb-wasm-es-wasm@latest/dist/img/duckdb_wasm.svg" height="80">
   <h1>DuckDB-Wasm</h1>
 </div>
 
 <div align="center">
-  <a href="https://www.npmjs.com/package/@duckdb/duckdb-wasm/v/latest">
-    <img src="https://img.shields.io/npm/v/@duckdb/duckdb-wasm?logo=npm" alt="duckdb-wasm package on NPM">
+  <a href="https://www.npmjs.com/package/duckdb-wasm-es-wasm/v/latest">
+    <img src="https://img.shields.io/npm/v/duckdb-wasm-es-wasm?logo=npm" alt="duckdb-wasm package on NPM">
   </a>
   <a href="https://github.com/duckdb/duckdb-wasm/actions">
     <img src="https://github.com/duckdb/duckdb-wasm/actions/workflows/main.yml/badge.svg?branch=master" alt="Github Actions Badge">
@@ -16,8 +16,8 @@
   <a href="https://github.com/duckdb/duckdb/releases/">
     <img src="https://img.shields.io/github/v/release/duckdb/duckdb?color=brightgreen&display_name=tag&logo=duckdb&logoColor=white" alt="Latest DuckDB Release">
   </a>
-  <a href="https://www.jsdelivr.com/package/npm/@duckdb/duckdb-wasm">
-    <img src="https://data.jsdelivr.com/v1/package/npm/@duckdb/duckdb-wasm/badge?style=rounded" alt="jsdeliver stats">
+  <a href="https://www.jsdelivr.com/package/npm/duckdb-wasm-es-wasm">
+    <img src="https://data.jsdelivr.com/v1/package/npm/duckdb-wasm-es-wasm/badge?style=rounded" alt="jsdeliver stats">
   </a>
 </div>
 <h1></h1>
@@ -44,7 +44,7 @@ make
 | Subproject                                               | Description    | Language   |
 | -------------------------------------------------------- | :------------- | :--------- |
 | [duckdb_wasm](/lib)                                      | Wasm Library   | C++        |
-| [@duckdb/duckdb-wasm](/packages/duckdb-wasm)             | Typescript API | Typescript |
-| [@duckdb/duckdb-wasm-shell](/packages/duckdb-wasm-shell) | SQL Shell      | Rust       |
-| [@duckdb/duckdb-wasm-app](/packages/duckdb-wasm-app)     | GitHub Page    | Typescript |
+| [duckdb-wasm-es-wasm](/packages/duckdb-wasm)             | Typescript API | Typescript |
+| [duckdb-wasm-es-wasm-shell](/packages/duckdb-wasm-shell) | SQL Shell      | Rust       |
+| [duckdb-wasm-es-wasm-app](/packages/duckdb-wasm-app)     | GitHub Page    | Typescript |
 | [@duckdb/react-duckdb](/packages/react-duckdb)           | React Hooks    | Typescript |
