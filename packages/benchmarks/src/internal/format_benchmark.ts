@@ -1,4 +1,4 @@
-import * as duckdb from 'duckdb-wasm-es-wasm/dist/duckdb-node-blocking';
+import * as duckdb from 'duckdb-wasm-es/dist/duckdb-node-blocking';
 import * as arrow from 'apache-arrow';
 import Benchmark from 'buffalo-bench/lib';
 

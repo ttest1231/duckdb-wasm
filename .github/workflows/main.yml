@@ -54,11 +54,11 @@ jobs:
                   script: |-
                       yarn install --frozen-lockfile --prefer-offline
 
-            - name: Lint duckdb-wasm-es-wasm
+            - name: Lint duckdb-wasm-es
               uses: duckdb/duckdb-wasm-ci-env@v0.11
               with:
                   script: |-
-                      yarn workspace duckdb-wasm-es-wasm run lint
+                      yarn workspace duckdb-wasm-es run lint
 
             - name: Lint @duckdb/benchmarks
               uses: duckdb/duckdb-wasm-ci-env@v0.11
@@ -531,13 +531,13 @@ jobs:
                       ./scripts/generate_uni.sh
                       ./scripts/npm_version.sh
 
-            - name: Build duckdb-wasm-es-wasm
+            - name: Build duckdb-wasm-es
               uses: duckdb/duckdb-wasm-ci-env@v0.11
               with:
                   script: |-
                       rm -rf ./packages/duckdb-wasm/dist/
-                      yarn workspace duckdb-wasm-es-wasm build:release
-                      yarn workspace duckdb-wasm-es-wasm docs
+                      yarn workspace duckdb-wasm-es build:release
+                      yarn workspace duckdb-wasm-es docs
 
             - name: Package
               shell: bash

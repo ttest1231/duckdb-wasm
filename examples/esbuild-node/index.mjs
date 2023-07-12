@@ -1,9 +1,9 @@
-import * as duckdb from "duckdb-wasm-es-wasm";
+import * as duckdb from "duckdb-wasm-es";
 import path from "path";
 import Worker from "web-worker";
 import { createRequire } from "module";
 const require2 = createRequire(import.meta.url);
-const DUCKDB_DIST = path.dirname(require2.resolve("duckdb-wasm-es-wasm"));
+const DUCKDB_DIST = path.dirname(require2.resolve("duckdb-wasm-es"));
 (async () => {
   try {
     const DUCKDB_CONFIG = await duckdb.selectBundle({

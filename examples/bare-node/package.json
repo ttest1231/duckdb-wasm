@@ -1,11 +1,11 @@
 {
     "private": true,
-    "name": "duckdb-wasm-es-wasm-examples-bare-node",
+    "name": "duckdb-wasm-es-examples-bare-node",
     "version": "0.0.1",
     "main": "index.js",
     "license": "MIT",
     "dependencies": {
-        "duckdb-wasm-es-wasm": "file:../../packages/duckdb-wasm"
+        "duckdb-wasm-es": "file:../../packages/duckdb-wasm"
     },
     "scripts": {
         "test": "node ./index.cjs"

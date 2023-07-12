@@ -1,12 +1,12 @@
-import * as duckdb from 'duckdb-wasm-es-wasm';
-import * as shell from 'duckdb-wasm-es-wasm-shell';
+import * as duckdb from 'duckdb-wasm-es';
+import * as shell from 'duckdb-wasm-es-shell';
 import * as rd from '@duckdb/react-duckdb';
 import React from 'react';
 import FontFaceObserver from 'fontfaceobserver';
 
 import styles from './shell.module.css';
 
-import shell_wasm from 'duckdb-wasm-es-wasm-shell/dist/shell_bg.wasm';
+import shell_wasm from 'duckdb-wasm-es-shell/dist/shell_bg.wasm';
 
 const SHELL_FONT_FAMILY = 'Roboto Mono';
 

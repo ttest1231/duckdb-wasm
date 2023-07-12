@@ -1,6 +1,6 @@
 import React from 'react';
 import * as imm from 'immutable';
-import * as duckdb from 'duckdb-wasm-es-wasm';
+import * as duckdb from 'duckdb-wasm-es';
 import { useDuckDB, useDuckDBResolver } from './database_provider';
 import { ResolvableStatus } from './resolvable';
 

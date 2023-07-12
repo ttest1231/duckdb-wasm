@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen(module = "duckdb-wasm-es-wasm")]
+#[wasm_bindgen(module = "duckdb-wasm-es")]
 extern "C" {
     #[wasm_bindgen(js_name = "PlatformFeatures")]
     type JSPlatformFeatures;

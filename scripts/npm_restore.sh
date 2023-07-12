@@ -16,7 +16,7 @@ rm -rf ${TMP_DIR}
 mkdir -p ${TMP_DIR}
 cd ${TMP_DIR}
 
-npm pack "duckdb-wasm-es-wasm@${NPM_VERSION}"
+npm pack "duckdb-wasm-es@${NPM_VERSION}"
 tar -xvzf ./duckdb-duckdb-wasm-*.tgz
 
 rm -rf "${PKG_DIR}/dist"

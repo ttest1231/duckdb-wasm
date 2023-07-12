@@ -12,25 +12,25 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'xterm/css/xterm.css';
 import 'react-popper-tooltip/dist/styles.css';
 
-import * as duckdb from 'duckdb-wasm-es-wasm';
-import duckdb_wasm from 'duckdb-wasm-es-wasm/dist/duckdb-mvp.wasm';
-import duckdb_wasm_eh from 'duckdb-wasm-es-wasm/dist/duckdb-eh.wasm';
-import duckdb_wasm_coi from 'duckdb-wasm-es-wasm/dist/duckdb-coi.wasm';
+import * as duckdb from 'duckdb-wasm-es';
+import duckdb_wasm from 'duckdb-wasm-es/dist/duckdb-mvp.wasm';
+import duckdb_wasm_eh from 'duckdb-wasm-es/dist/duckdb-eh.wasm';
+import duckdb_wasm_coi from 'duckdb-wasm-es/dist/duckdb-coi.wasm';
 
 const DUCKDB_BUNDLES: duckdb.DuckDBBundles = {
     mvp: {
         mainModule: duckdb_wasm,
-        mainWorker: new URL('duckdb-wasm-es-wasm/dist/duckdb-browser-mvp.worker.js', import.meta.url).toString(),
+        mainWorker: new URL('duckdb-wasm-es/dist/duckdb-browser-mvp.worker.js', import.meta.url).toString(),
     },
     eh: {
         mainModule: duckdb_wasm_eh,
-        mainWorker: new URL('duckdb-wasm-es-wasm/dist/duckdb-browser-eh.worker.js', import.meta.url).toString(),
+        mainWorker: new URL('duckdb-wasm-es/dist/duckdb-browser-eh.worker.js', import.meta.url).toString(),
     },
     coi: {
         mainModule: duckdb_wasm_coi,
-        mainWorker: new URL('duckdb-wasm-es-wasm/dist/duckdb-browser-coi.worker.js', import.meta.url).toString(),
+        mainWorker: new URL('duckdb-wasm-es/dist/duckdb-browser-coi.worker.js', import.meta.url).toString(),
         pthreadWorker: new URL(
-            'duckdb-wasm-es-wasm/dist/duckdb-browser-coi.pthread.worker.js',
+            'duckdb-wasm-es/dist/duckdb-browser-coi.pthread.worker.js',
             import.meta.url,
         ).toString(),
     },

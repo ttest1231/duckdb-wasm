@@ -292,56 +292,56 @@ wasm_star: wasm_relsize wasm_relperf wasm_dev wasm_debug
 # Build the duckdb library in debug mode
 .PHONY: js_debug
 js_debug: build/bootstrap wasm yarn_install
-	yarn workspace duckdb-wasm-es-wasm build:debug
+	yarn workspace duckdb-wasm-es build:debug
 
 # Build the duckdb library in release mode
 .PHONY: js_release
 js_release: yarn_install
-	yarn workspace duckdb-wasm-es-wasm build:release
+	yarn workspace duckdb-wasm-es build:release
 
 # Build the duckdb docs
 .PHONY: docs
 docs: yarn_install
-	yarn workspace duckdb-wasm-es-wasm docs
+	yarn workspace duckdb-wasm-es docs
 
 # Run the duckdb javascript tests
 .PHONY: js_tests
 js_tests: js_debug build/data
-	yarn workspace duckdb-wasm-es-wasm test
+	yarn workspace duckdb-wasm-es test
 
 # Run the duckdb javascript tests in browser
 .PHONY: js_tests_browser
 js_tests_browser: js_debug build/data
-	yarn workspace duckdb-wasm-es-wasm test:chrome
+	yarn workspace duckdb-wasm-es test:chrome
 
 # Run the duckdb javascript tests in browser
 .PHONY: js_tests_browser_debug
 js_tests_browser_debug: js_debug build/data
-	yarn workspace duckdb-wasm-es-wasm test:browser:debug
+	yarn workspace duckdb-wasm-es test:browser:debug
 
 
 wasmpack: yarn_install
-	yarn workspace duckdb-wasm-es-wasm-shell install:wasmpack
+	yarn workspace duckdb-wasm-es-shell install:wasmpack
 
 .PHONY: shell
 shell: build/bootstrap js_debug
-	yarn workspace duckdb-wasm-es-wasm-shell build:debug
+	yarn workspace duckdb-wasm-es-shell build:debug
 
 .PHONY: shell_release
 shell_release: js_release
-	yarn workspace duckdb-wasm-es-wasm-shell build:release
+	yarn workspace duckdb-wasm-es-shell build:release
 
 .PHONY: app_start
 app_start: yarn_install
-	yarn workspace duckdb-wasm-es-wasm-app start
+	yarn workspace duckdb-wasm-es-app start
 
 .PHONY: app_start_corp
 app_start_corp:
-	yarn workspace duckdb-wasm-es-wasm-app start:corp
+	yarn workspace duckdb-wasm-es-app start:corp
 
 .PHONY: app
 app: wasm wasmpack shell docs
-	yarn workspace duckdb-wasm-es-wasm-app build:release
+	yarn workspace duckdb-wasm-es-app build:release
 
 .PHONY: app_server
 app_server:
@@ -358,8 +358,8 @@ clang_format:
 # JS formatting
 .PHONY: eslint
 eslint:
-	yarn workspace duckdb-wasm-es-wasm run lint
-	yarn workspace duckdb-wasm-es-wasm-shell run lint
+	yarn workspace duckdb-wasm-es run lint
+	yarn workspace duckdb-wasm-es-shell run lint
 	yarn workspace @duckdb/benchmarks run lint
 
 # Install all yarn packages
@@ -370,8 +370,8 @@ yarn_install:
 
 .PHONY: examples
 examples: yarn_install
-	yarn workspace duckdb-wasm-es-wasm-examples-bare-browser build
-	yarn workspace duckdb-wasm-es-wasm-examples-esbuild-browser build
+	yarn workspace duckdb-wasm-es-examples-bare-browser build
+	yarn workspace duckdb-wasm-es-examples-esbuild-browser build
 
 # ---------------------------------------------------------------------------
 # Environment
