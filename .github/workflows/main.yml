@@ -539,13 +539,6 @@ jobs:
                       yarn workspace duckdb-wasm-es-wasm build:release
                       yarn workspace duckdb-wasm-es-wasm docs
 
-            - name: Build duckdb-wasm-es-wasm-app
-              uses: duckdb/duckdb-wasm-ci-env@v0.11
-              with:
-                  script: |-
-                      rm -rf ./packages/duckdb-wasm-app/build/
-                      yarn workspace duckdb-wasm-es-wasm-app build:release
-
             - name: Package
               shell: bash
               run: zip -r duckdb-wasm-packages.zip ./packages
