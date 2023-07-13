@@ -197,8 +197,8 @@ fs.copyFile(path.resolve(src, 'bindings', 'duckdb-coi.wasm'), path.resolve(dist,
 
     console.log('[ ESBUILD ] duckdb-browser-ehsimd.worker.js');
     await esbuild.build({
-        entryPoints: ['./src/targets/duckdb-browser-ehsimd.worker.ts'],
-        outfile: 'dist/duckdb-browser-eh.worker.js',
+        entryPoints: ['./src/targets/duckdb-browser-eh.worker.ts'],
+        outfile: 'dist/duckdb-browser-ehsimd.worker.js',
         platform: 'browser',
         format: 'esm',
         globalName: 'duckdb',
