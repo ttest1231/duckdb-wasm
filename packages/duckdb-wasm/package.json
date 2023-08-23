@@ -1,5 +1,5 @@
 {
-    "name": "@duckdb/duckdb-wasm",
+    "name": "duckdb-wasm-es",
     "version": "1.11.0",
     "description": "DuckDB powered by WebAssembly",
     "license": "MIT",

@@ -1,5 +1,6 @@
 {
     "name": "@duckdb/react-duckdb",
+    "private": true,
     "version": "1.11.0",
     "description": "React components for DuckDB-Wasm",
     "license": "MIT",
