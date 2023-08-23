@@ -413,6 +413,47 @@ jobs:
                       ./packages/duckdb-wasm/src/bindings/duckdb-mvp.js
                       ./packages/duckdb-wasm/src/bindings/duckdb-mvp.wasm
                   retention-days: 1
+    wasm_ehsimd:
+        name: Wasm / ehsimd
+        runs-on: ubuntu-latest
+        needs:
+            - dataprep
+            - tpchgen
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  submodules: 'recursive'
+                  fetch-depth: 0
+
+            - name: Prepare repository
+              run: |
+                  [ -f duckdb.patch ] && cd submodules/duckdb && git apply ../../duckdb.patch || echo "No patching needed"
+
+            - uses: mymindstorm/setup-emsdk@v12
+              with:
+                  version: 'latest'
+
+            - name: Setup Ccache
+              uses: hendrikmuhs/ccache-action@main
+              with:
+                  key: ${{ github.job }}
+
+            - name: Git submodule status
+              run: |
+                  git submodule status > git_submodule_status.txt
+
+            - name: Build Wasm module
+              run: |
+                  ./scripts/wasm_build_lib.sh relperf ehsimd
+
+            - name: Upload artifact
+              uses: actions/upload-artifact@v3
+              with:
+                  name: wasm-ehsimd
+                  path: |
+                      ./packages/duckdb-wasm/src/bindings/duckdb-ehsimd.js
+                      ./packages/duckdb-wasm/src/bindings/duckdb-ehsimd.wasm
+                  retention-days: 1
 
     wasm_eh:
         name: Wasm / eh
@@ -505,6 +546,7 @@ jobs:
         needs:
             - wasm_mvp
             - wasm_eh
+            - wasm_ehsimd
             - wasm_coi
             - duckdb_shell
             - native_debug
@@ -574,6 +616,11 @@ jobs:
             - uses: actions/download-artifact@v3
               with:
                   name: wasm-eh
+                  path: ./packages/duckdb-wasm/src/bindings/
+
+            - uses: actions/download-artifact@v3
+              with:
+                  name: wasm-ehsimd
                   path: ./packages/duckdb-wasm/src/bindings/
 
             - uses: actions/download-artifact@v3

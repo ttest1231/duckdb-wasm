@@ -35,7 +35,7 @@ import { fileURLToPath } from 'url';
 // The lack of alternatives for Karma won't allow us to bundle workers and tests as ESM.
 // We should upgrade all CommonJS bundles to ESM as soon as the dynamic requires are resolved.
 
-const TARGET_BROWSER = ['chrome64', 'edge79', 'firefox62', 'safari11.1'];
+const TARGET_BROWSER = ['chrome115', 'edge114'];
 const TARGET_BROWSER_TEST = ['es2020'];
 const TARGET_NODE = ['node14.6'];
 const EXTERNALS_NODE = ['apache-arrow'];
@@ -95,6 +95,7 @@ rimraf.sync(`${dist}/*.cjs.map`);
 const src = path.resolve(__dirname, 'src');
 fs.copyFile(path.resolve(src, 'bindings', 'duckdb-mvp.wasm'), path.resolve(dist, 'duckdb-mvp.wasm'), printErr);
 fs.copyFile(path.resolve(src, 'bindings', 'duckdb-eh.wasm'), path.resolve(dist, 'duckdb-eh.wasm'), printErr);
+fs.copyFile(path.resolve(src, 'bindings', 'duckdb-ehsimd.wasm'), path.resolve(dist, 'duckdb-ehsimd.wasm'), printErr);
 fs.copyFile(path.resolve(src, 'bindings', 'duckdb-coi.wasm'), path.resolve(dist, 'duckdb-coi.wasm'), printErr);
 
 (async () => {
@@ -193,6 +194,22 @@ fs.copyFile(path.resolve(src, 'bindings', 'duckdb-coi.wasm'), path.resolve(dist,
         external: EXTERNALS_WEBWORKER,
         define: { 'process.release.name': '"browser"' },
     });
+
+    console.log('[ ESBUILD ] duckdb-browser-ehsimd.worker.js');
+    await esbuild.build({
+        entryPoints: ['./src/targets/duckdb-browser-eh.worker.ts'],
+        outfile: 'dist/duckdb-browser-ehsimd.worker.js',
+        platform: 'browser',
+        format: 'iife',
+        globalName: 'duckdb',
+        target: TARGET_BROWSER,
+        bundle: true,
+        minify: true,
+        sourcemap: is_debug ? 'inline' : true,
+        external: EXTERNALS_WEBWORKER,
+        define: { 'process.release.name': '"browser"' },
+    });
+
 
     console.log('[ ESBUILD ] duckdb-browser-coi.worker.js');
     await esbuild.build({
